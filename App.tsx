@@ -5,8 +5,8 @@
  * @format
  */
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import * as React from 'react';
+import type { PropsWithChildren } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -25,11 +25,13 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import { MyCppModule } from 'cpp-turbomodule';
+
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Section({children, title}: SectionProps): React.JSX.Element {
+function Section({ children, title }: SectionProps): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -55,12 +57,32 @@ function Section({children, title}: SectionProps): React.JSX.Element {
   );
 }
 
+const user1 = {
+  address: { city: 'London', street: '47 West Street', zipcode: 'N97 6QJ' },
+  id: 1,
+  name: 'John Doe',
+};
+const user2 = {
+  address: { city: 'London', street: '97 York Road', zipcode: 'NW91 5RU' },
+  id: 1,
+  name: 'Jane Doe',
+  hasChildren: true,
+};
+
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  const [syncUsers, setSyncUsers] = React.useState<any[]>([]);
+  const [asyncUsers, setAsyncUsers] = React.useState<any[]>([]);
+  React.useEffect(() => {
+    const users = MyCppModule.getUsers(user1);
+    setSyncUsers(users);
+    MyCppModule.getUsersAsync(user2).then(setAsyncUsers);
+  }, []);
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -76,6 +98,14 @@ function App(): React.JSX.Element {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
+          <Section title="Sync users">
+            For user {JSON.stringify(user1, null, 2)} we have following
+            relatives {JSON.stringify(syncUsers, null, 2)}
+          </Section>
+          <Section title="Async users">
+            For user {JSON.stringify(user2, null, 2)} we have following
+            relatives {JSON.stringify(asyncUsers, null, 2)}
+          </Section>
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.

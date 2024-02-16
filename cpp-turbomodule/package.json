@@ -1,0 +1,26 @@
+{
+  "private": true,
+  "name": "cpp-turbomodule",
+  "version": "0.0.1",
+  "description": "My awesome package",
+  "main": "src",
+  "module": "src",
+  "react-native": "src",
+  "source": "src",
+  "repository": "<repository-url>",
+  "author": "<author>",
+  "license": "MIT",
+  "homepage": "<homepage-url>",
+  "peerDependencies": {
+    "react": ">=18",
+    "react-native": ">=0.73"
+  },
+  "codegenConfig": {
+    "name": "MyCppTurboPackage",
+    "type": "all",
+    "jsSrcsDir": "src",
+    "android": {
+      "javaPackageName": "com.mycppturbopackage"
+    }
+  }
+}

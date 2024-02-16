@@ -28,6 +28,8 @@ end
 ENV['RCT_NEW_ARCH_ENABLED'] = "1"
 
 target 'cppturbomodule' do
+  pod 'CommonCppPackage', :path => "../common-cpp"
+
   config = use_native_modules!
 
   use_react_native!(

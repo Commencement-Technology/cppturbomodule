@@ -2,6 +2,12 @@
   "name": "cppturbomodule",
   "version": "0.0.1",
   "private": true,
+  "workspaces": {
+    "packages": [
+      "common-cpp",
+      "cpp-turbomodule"
+    ]
+  },
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
@@ -10,6 +16,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "cpp-turbomodule": "*",
     "react": "18.2.0",
     "react-native": "0.73.4"
   },

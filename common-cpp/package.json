@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "common-cpp",
+  "version": "0.0.1",
+  "description": "Shared C++ package",
+  "repository": "<repository-url>",
+  "author": "<author>",
+  "license": "MIT",
+  "homepage": "<homepage-url>"
+}
